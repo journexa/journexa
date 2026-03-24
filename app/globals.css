@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 7%;
+    --foreground: 213 31% 91%;
+    --card: 222 47% 10%;
+    --card-foreground: 213 31% 91%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --primary: 20 100% 60%;
+    --primary-foreground: 222 47% 7%;
+    --secondary: 222 47% 13%;
+    --secondary-foreground: 213 31% 91%;
+    --muted: 223 47% 14%;
+    --muted-foreground: 215 20% 55%;
+    --accent: 222 47% 14%;
+    --accent-foreground: 213 31% 91%;
+    --ring: 20 100% 60%;
+    --radius: 0.75rem;
+    /* brand tokens */
+    --brand:    20 100% 60%;
+    --brand-2: 162 100% 39%;
+    --brand-3: 199 89%  60%;
+    --danger:  348 100% 65%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Outfit', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: 'Fraunces', serif; }
+}
+
+/* ── Aurora background ── */
+.aurora-bg {
+  position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+}
+.aurora-bg::before {
+  content: '';
+  position: absolute; inset: -200%;
+  background:
+    repeating-linear-gradient(
+      100deg,
+      hsl(var(--brand) / 0.06) 10%,
+      hsl(var(--brand-3) / 0.04) 15%,
+      hsl(var(--brand-2) / 0.05) 20%,
+      transparent 25%
+    );
+  background-size: 300%, 200%;
+  animation: aurora 60s linear infinite;
+  filter: blur(40px);
+}
+.aurora-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% 0%,   hsl(var(--brand)   / 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 100%,  hsl(var(--brand-2) / 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 30% at 55%  50%,  hsl(var(--brand-3) / 0.04) 0%, transparent 50%);
+}
+
+/* ── Grid overlay ── */
+.grid-overlay {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(hsl(var(--foreground) / 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--foreground) / 0.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ── Magic UI: Shimmer text ── */
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--foreground)) 0%,
+    hsl(var(--brand)) 30%,
+    hsl(var(--foreground)) 60%,
+    hsl(var(--brand)) 90%,
+    hsl(var(--foreground)) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 8s linear infinite;
+}
+
+/* ── Magic UI: Animated gradient border ── */
+.gradient-border {
+  position: relative;
+  background: hsl(var(--card));
+  border-radius: var(--radius);
+}
+.gradient-border::before {
+  content: '';
+  position: absolute; inset: -1px;
+  border-radius: calc(var(--radius) + 1px);
+  background: linear-gradient(135deg,
+    hsl(var(--brand) / 0.4),
+    transparent 40%,
+    hsl(var(--brand-2) / 0.3) 70%,
+    transparent
+  );
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.gradient-border:hover::before { opacity: 1; }
+
+/* ── Magic UI: Meteors ── */
+.meteor {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 1px; height: 80px;
+  background: linear-gradient(to bottom, hsl(var(--brand)), transparent);
+  border-radius: 9999px;
+  rotate: 215deg;
+  animation: meteor 5s linear infinite;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: hsl(var(--background)); }
+::-webkit-scrollbar-thumb { background: hsl(var(--secondary)); border-radius: 3px; }
+
+/* ── Utility ── */
+.font-display { font-family: 'Fraunces', serif; }
+.font-mono    { font-family: 'JetBrains Mono', monospace; }

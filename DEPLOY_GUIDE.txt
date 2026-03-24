@@ -1,0 +1,150 @@
+================================================================
+JOURNEXA — CLOUDFLARE PAGES DEPLOYMENT GUIDE
+Complete beginner friendly. Follow steps in exact order.
+Total time: ~25 minutes
+================================================================
+
+STEP 1 — GET YOUR GEMINI API KEY (Free)
+================================================================
+1. Go to: https://aistudio.google.com/app/apikey
+2. Sign in with journexa@gmail.com
+3. Click "Create API key"
+4. Select "Create API key in new project"
+5. COPY the key — looks like: AIzaSy...
+6. Save it somewhere safe
+
+Gemini API is free with generous limits.
+More than enough for thousands of requests per day.
+
+
+STEP 2 — SET UP SUPABASE (Free database)
+================================================================
+1. Go to: https://supabase.com
+2. Sign in with journexa@gmail.com
+3. Click "New Project"
+4. Name: journexa
+5. Set a strong database password (save it)
+6. Region: Southeast Asia (closest to India)
+7. Click "Create new project" — wait 2 minutes
+
+After it loads:
+8. Click "Settings" (left sidebar) → "API"
+9. Copy "Project URL" — looks like: https://xxxxx.supabase.co
+10. Copy "anon public" key — long string starting with eyJ...
+11. Copy "service_role" key — another long string (keep this secret)
+
+Create the database table:
+12. Click "SQL Editor" → "New query"
+13. Paste this and click "RUN":
+
+CREATE TABLE queries (
+  id BIGSERIAL PRIMARY KEY,
+  city TEXT,
+  message TEXT,
+  urgency TEXT,
+  language TEXT DEFAULT 'en',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+14. Should see: "Success. No rows returned" ✓
+
+
+STEP 3 — PUT CODE ON GITHUB
+================================================================
+1. Go to: https://github.com
+2. Sign in as journexa
+3. Click "+" top right → "New repository"
+4. Repository name: journexa
+5. Visibility: Public
+6. DO NOT check "Add README"
+7. Click "Create repository"
+
+Upload files:
+8. On the empty repo page, click "uploading an existing file"
+9. Open the journexa ZIP, extract it
+10. Drag ALL files and folders into GitHub upload area
+11. Commit message: "Initial launch 🚀"
+12. Click "Commit changes"
+
+IMPORTANT: Never upload .env.local — it is protected by .gitignore
+
+
+STEP 4 — DEPLOY ON CLOUDFLARE PAGES
+================================================================
+1. Go to: https://pages.cloudflare.com
+2. Sign up / sign in with journexa@gmail.com
+3. Click "Create a project" → "Connect to Git"
+4. Connect your GitHub account
+5. Select the "journexa" repository → "Begin setup"
+
+Build settings — fill EXACTLY as shown:
+┌─────────────────────────────────────────────────────────┐
+│ Framework preset:     Next.js                           │
+│ Build command:        npx @cloudflare/next-on-pages     │
+│ Build output dir:     .vercel/output/static             │
+└─────────────────────────────────────────────────────────┘
+
+6. Scroll to "Environment Variables" section
+7. Add these variables one by one:
+
+   Name: GEMINI_API_KEY
+   Value: (your AIzaSy... key from Step 1)
+
+   Name: NEXT_PUBLIC_SUPABASE_URL
+   Value: (your https://xxxxx.supabase.co from Step 2)
+
+   Name: NEXT_PUBLIC_SUPABASE_ANON_KEY
+   Value: (your anon key from Step 2)
+
+   Name: SUPABASE_SERVICE_KEY
+   Value: (your service_role key from Step 2)
+
+   Name: NODE_VERSION
+   Value: 18
+
+8. Click "Save and Deploy"
+9. Wait 4–6 minutes for first build
+
+Green checkmark = YOU ARE LIVE 🎉
+Your URL: journexa.pages.dev
+
+
+STEP 5 — TEST YOUR LIVE APP
+================================================================
+1. Open journexa.pages.dev on your phone
+2. City: Mumbai
+3. Problem: I have high fever since last night, 103F
+4. Click "Get Help Now"
+5. Results should appear in 10-15 seconds
+
+If it works — you're live. Share it now!
+
+
+COMMON ERRORS & FIXES
+================================================================
+Build failed — "Cannot find module"
+→ Make sure ALL files including package.json are in GitHub
+
+AI doesn't respond
+→ Double-check GEMINI_API_KEY in Cloudflare Pages settings
+→ Go to: your project → Settings → Environment Variables
+
+Blank page after deploy
+→ Check build logs in Cloudflare for red errors
+→ Make sure build command is: npx @cloudflare/next-on-pages
+
+Edge runtime error
+→ Make sure route.js has: export const runtime = 'edge'
+   (already included in the code — don't delete it)
+
+
+STEP 6 — WHAT TO DO IMMEDIATELY AFTER GOING LIVE
+================================================================
+1. Put journexa.pages.dev in your Instagram bio
+2. Post first Instagram content (ask me for content calendar)
+3. Share in 3 travel WhatsApp groups you're in
+4. Post in r/solotravel on Reddit introducing Journexa
+5. Come back here — we build Phase 2 together
+
+================================================================
+Questions? journexa@gmail.com
