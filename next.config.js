@@ -1,7 +1,6 @@
-@type {import('next').NextConfig}
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    runtime: 'edge',
-  },
-}
-module.exports = nextConfig
+  reactStrictMode: true,
+};
+
+module.exports = nextConfig;
